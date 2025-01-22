@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Utils.h"
 #include "Character.h"
 
 class Game
@@ -9,6 +8,7 @@ public:
 	Game();
 	virtual ~Game();
 
+	void InitializeGame();
 	void MainMenu();
 
 	inline bool IsPlaying() const { return this->isPlaying; }
@@ -16,5 +16,7 @@ public:
 private:
 	int choice;
 	bool isPlaying;
+
+	Character character;
 };
 

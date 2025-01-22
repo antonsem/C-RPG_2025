@@ -8,6 +8,7 @@
 int main()
 {
 	Game game;
+	game.InitializeGame();
 
 	while (game.IsPlaying())
 	{

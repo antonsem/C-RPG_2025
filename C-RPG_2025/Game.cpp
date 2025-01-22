@@ -2,12 +2,17 @@
 
 Game::Game()
 {
-	choice = 0;
-	isPlaying = true;
+	this->choice = 0;
+	this->isPlaying = true;
 }
 
 Game::~Game()
 {
+}
+
+void Game::InitializeGame()
+{
+	this->character.Initialize("Anothor", 1);
 }
 
 void Game::MainMenu()
@@ -15,6 +20,7 @@ void Game::MainMenu()
 	Utils::Print("----------", 2);
 	Utils::Print("MAIN MENU");
 	Utils::Print("0: Quit");
+	Utils::Print("1: Stats");
 
 	Utils::Print("Your move: ", 0);
 	std::cin >> choice;
@@ -22,8 +28,10 @@ void Game::MainMenu()
 	switch (choice)
 	{
 	case 0:
-		isPlaying = false;
+		this->isPlaying = false;
 		break;
+	case 1:
+		this->character.PrintStats();
 	default:
 		break;
 	}
