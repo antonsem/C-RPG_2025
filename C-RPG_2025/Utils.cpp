@@ -20,7 +20,7 @@ void Utils::Print(const std::string output, const int newLineCount)
 
 void Utils::Print(const std::vector<std::string> output, const bool eachNewLine, const int newLineCount)
 {
-	int size = output.size();
+	int size = static_cast<int>(output.size());
 	for (size_t i = 0; i < size; i++)
 	{
 		std::cout << output[i];

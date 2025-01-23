@@ -3,12 +3,22 @@
 
 #include <iostream>
 
-#include "Game.h";
+#include "Game.h"
 
 int main()
 {
 	Game game;
 	game.InitializeGame();
+
+	Inventory inv = Inventory();
+
+	inv.AddItem(Item());
+	inv.AddItem(Item());
+	inv.AddItem(Item());
+	inv.AddItem(Item());
+	inv.AddItem(Item());
+
+	inv.DebugPrint();
 
 	while (game.IsPlaying())
 	{
