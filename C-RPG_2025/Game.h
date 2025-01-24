@@ -1,5 +1,6 @@
 #pragma once
 
+#include <fstream>
 #include "Character.h"
 
 class Game
@@ -10,6 +11,10 @@ public:
 
 	void InitializeGame();
 	void MainMenu();
+
+	void CreateNewCharacter();
+	void Save();
+	void Load();
 
 	inline bool IsPlaying() const { return this->isPlaying; }
 

@@ -12,7 +12,7 @@ Game::~Game()
 
 void Game::InitializeGame()
 {
-	this->character.Initialize("Anothor", 1);
+	CreateNewCharacter();
 }
 
 void Game::MainMenu()
@@ -35,4 +35,40 @@ void Game::MainMenu()
 	default:
 		break;
 	}
+}
+
+void Game::CreateNewCharacter()
+{
+	Utils::Print("===== NEW CHARACTER =====");
+	std::string name = Utils::GetInput("Name");
+	character.Initialize(name);
+	Save();
+}
+
+void Game::Save()
+{
+	if (!&this->character.Name())
+	{
+		return;
+	}
+
+	std::string fileName = character.Name() + ".txt";
+
+	if (fileName.size() <= 0)
+	{
+		return;
+	}
+
+	std::ofstream outFile(fileName);
+
+	if (outFile.is_open())
+	{
+		outFile << character.GetAsString();
+	}
+
+	outFile.close();
+}
+
+void Game::Load()
+{
 }

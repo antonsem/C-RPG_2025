@@ -9,23 +9,24 @@ public:
 	Character();
 	virtual ~Character();
 
-	void Initialize(const std::string name, int level);
+	void Initialize(const std::string name, int level = 0);
 	void PrintStats() const;
 	void LevelUp();
 	int GetNextExpFor(const int level);
+	std::string GetAsString() const;
 
-	inline std::string& Name() const { this->name; }
-	inline int& Level() const { this->level; }
-	inline int& PosX() const { this->posX; }
-	inline int& PosY() const { this->posY; }
-	inline int& Hp() const { this->hp; }
-	inline int& MaxHp() const { this->maxHp; }
-	inline int& MinDamage() const { this->minDamage; }
-	inline int& MaxDamage() const { this->maxDamage; }
-	inline int& Defence() const { this->defence; }
-	inline int& Stamina() const { this->stamina; }
-	inline int& Exp() const { this->exp; }
-	inline int& NextExp() const { this->nextExp; }
+	inline const std::string& Name() const { return this->name; }
+	inline const int& Level() const { return this->level; }
+	inline const int& PosX() const { return this->posX; }
+	inline const int& PosY() const { return this->posY; }
+	inline const int& Hp() const { return this->hp; }
+	inline const int& MaxHp() const { return this->maxHp; }
+	inline const int& MinDamage() const { return this->minDamage; }
+	inline const int& MaxDamage() const { return this->maxDamage; }
+	inline const int& Defence() const { return this->defence; }
+	inline const int& Stamina() const { return this->stamina; }
+	inline const int& Exp() const { return this->exp; }
+	inline const int& NextExp() const { return this->nextExp; }
 
 private:
 	std::string name;

@@ -64,6 +64,20 @@ int Character::GetNextExpFor(const int level)
 			+ (17 * level - 12)) + 100;
 }
 
+std::string Character::GetAsString() const
+{
+	return Utils::Concat({
+		this->name,
+		std::to_string(this->level),
+		std::to_string(this->posX),
+		std::to_string(this->posY),
+		std::to_string(this->strength),
+		std::to_string(this->vitality),
+		std::to_string(this->dexterity),
+		std::to_string(this->intelligence),
+		});
+}
+
 void Character::PrintStats() const
 {
 	Utils::Break();
