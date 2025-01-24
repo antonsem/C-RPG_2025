@@ -18,7 +18,9 @@ Character::Character()
 	this->minDamage = 0;
 	this->maxDamage = 0;
 	this->defence = 0;
+	this->maxStamina = 0;
 	this->stamina = 0;
+	this->luck = 0;
 	this->exp = 0;
 	this->nextExp = 0;
 
@@ -43,12 +45,14 @@ void Character::Initialize(const std::string name, int level)
 	this->dexterity = 5;
 	this->intelligence = 5;
 
-	this->hp = 10;
-	this->maxHp = 10;
-	this->minDamage = 2;
-	this->maxDamage = 5;
-	this->defence = 1;
-	this->stamina = 5;
+	this->maxHp = (this->vitality * 2) + static_cast<int>(this->strength * 0.5);
+	this->hp = this->maxHp;
+	this->maxDamage = this->strength * 2;
+	this->minDamage = this->strength;
+	this->defence = this->dexterity + static_cast<int>(this->intelligence * 0.5);
+	this->maxStamina = this->vitality + static_cast<int>(this->strength * 0.5) + static_cast<int>(this->dexterity * 0.33);
+	this->stamina = this->maxStamina;
+	this->luck = intelligence;
 	this->exp = 0;
 	this->nextExp = GetNextExpFor(level);
 

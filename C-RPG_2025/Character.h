@@ -38,7 +38,9 @@ private:
 	int minDamage;
 	int maxDamage;
 	int defence;
+	int maxStamina;
 	int stamina;
+	int luck;
 	int exp;
 	int nextExp;
 
