@@ -1,4 +1,5 @@
 #include "Character.h"
+#include "Inventory.h"
 
 Character::Character()
 {

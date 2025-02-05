@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Character.h"
 
 Game::Game()
 {
