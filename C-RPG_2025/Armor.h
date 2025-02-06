@@ -12,6 +12,8 @@ public:
 
 	const void ToString();
 
+	virtual Armor* Clone() const;
+
 private:
 
 	int type;

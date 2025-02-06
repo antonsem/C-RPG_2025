@@ -11,6 +11,8 @@ public:
 
 	const void ToString();
 
+	virtual Weapon* Clone() const;
+
 private:
 
 	int minDamage;

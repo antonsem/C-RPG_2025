@@ -18,3 +18,8 @@ const void Weapon::ToString()
 		"Maximum Damage: " + std::to_string(this->maxDamage)
 		});
 }
+
+Weapon* Weapon::Clone() const
+{
+	return new Weapon(*this);
+}

@@ -18,6 +18,8 @@ public:
 
 	const void ToString();
 
+	virtual Item* Clone() const = 0;
+
 private:
 	std::string name;
 	int level;

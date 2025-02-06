@@ -26,7 +26,7 @@ void Inventory::AddItem(const Item& item)
 		Expand();
 	}
 
-	this->items[this->itemCount++] = new Item(item);
+	this->items[this->itemCount++] = item.Clone();
 }
 
 void Inventory::Initialize(const int from)
@@ -45,12 +45,7 @@ void Inventory::Expand()
 
 	for (size_t i = 0; i < this->itemCount; i++)
 	{
-		temp[i] = new Item(*this->items[i]);
-	}
-
-	for (size_t i = 0; i < itemCount; i++)
-	{
-		delete this->items[i];
+		temp[i] = this->items[i];
 	}
 
 	delete[] this->items;

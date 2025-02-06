@@ -30,6 +30,11 @@ public:
 
 private:
 	std::string name;
+
+	Inventory inventory;
+	Weapon weapon;
+	Armor armor;
+
 	int level;
 	int posX;
 	int posY;

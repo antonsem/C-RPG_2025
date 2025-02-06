@@ -17,3 +17,8 @@ const void Armor::ToString()
 		"Type: " + std::to_string(this->type),
 		"Defence: " + std::to_string(this->defence) });
 }
+
+Armor* Armor::Clone() const
+{
+	return new Armor(*this);
+}
