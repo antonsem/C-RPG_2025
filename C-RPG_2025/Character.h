@@ -11,6 +11,7 @@ public:
 
 	void Initialize(const std::string name, int level = 0);
 	void PrintStats() const;
+	inline void PrintInventory() const { this->inventory.DebugPrint(); }
 	void LevelUp();
 	int GetNextExpFor(const int level);
 	std::string GetAsString() const;

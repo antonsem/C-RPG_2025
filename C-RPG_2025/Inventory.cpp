@@ -7,7 +7,23 @@ Inventory::Inventory()
 	this->capacity = 4;
 	this->itemCount = 0;
 	this->items = new Item * [capacity];
+	this->Initialize();
 }
+
+Inventory::Inventory(const Inventory& obj)
+{
+	this->capacity = obj.capacity;
+	this->itemCount = obj.itemCount;
+	this->items = new Item * [this->capacity];
+
+	for (size_t i = 0; i < this->itemCount; i++)
+	{
+		this->items[i] = obj.items[i]->Clone();
+	}
+
+	Initialize(this->itemCount);
+}
+
 
 Inventory::~Inventory()
 {
@@ -27,6 +43,16 @@ void Inventory::AddItem(const Item& item)
 	}
 
 	this->items[this->itemCount++] = item.Clone();
+}
+
+Item& Inventory::operator[](const int index)
+{
+	if (index < 0 || index >= this->itemCount)
+	{
+		throw("BAD INDEX!");
+	}
+
+	return *this->items[index];
 }
 
 void Inventory::Initialize(const int from)

@@ -59,6 +59,9 @@ void Character::Initialize(const std::string name, int level)
 
 	this->statPoints = 5;
 	this->skillPoints = 5;
+
+	inventory.AddItem(Weapon(5, 10, "Hidden Dagger"));
+	inventory.AddItem(Armor(0, 1, "Robe"));
 }
 
 int Character::GetNextExpFor(const int level)

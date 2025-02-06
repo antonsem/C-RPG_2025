@@ -7,16 +7,22 @@ class Inventory
 {
 public:
 	Inventory();
+	Inventory(const Inventory& obj);
 	virtual ~Inventory();
 
 	void AddItem(const Item& item);
 
+	inline int Size() const { return this->itemCount; }
+	Item& operator[](const int index);
+
 	inline void DebugPrint() const
 	{
+		Utils::Print("===== Inventory =====");
 		for (size_t i = 0; i < this->itemCount; i++)
 		{
 			this->items[i]->DebugPrint();
 		}
+		Utils::Print("==========");
 	}
 
 private:

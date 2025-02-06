@@ -22,6 +22,7 @@ void Game::MainMenu()
 	Utils::Print("MAIN MENU");
 	Utils::Print("0: Quit");
 	Utils::Print("1: Stats");
+	Utils::Print("2: Inventory");
 
 	Utils::Print("Your move: ", 0);
 	std::cin >> choice;
@@ -33,6 +34,8 @@ void Game::MainMenu()
 		break;
 	case 1:
 		this->character.PrintStats();
+	case 2:
+		this->character.PrintInventory();
 	default:
 		break;
 	}
