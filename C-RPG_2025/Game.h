@@ -15,6 +15,7 @@ public:
 	void CreateNewCharacter();
 	void Save();
 	void Load();
+	void Travel();
 
 	inline bool IsPlaying() const { return this->isPlaying; }
 

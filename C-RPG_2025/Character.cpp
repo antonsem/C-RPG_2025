@@ -21,6 +21,7 @@ Character::Character()
 	this->defence = 0;
 	this->maxStamina = 0;
 	this->stamina = 0;
+	this->accuracy = 0;
 	this->luck = 0;
 	this->exp = 0;
 	this->nextExp = 0;
@@ -53,6 +54,7 @@ void Character::Initialize(const std::string name, int level)
 	this->defence = this->dexterity + static_cast<int>(this->intelligence * 0.5);
 	this->maxStamina = this->vitality + static_cast<int>(this->strength * 0.5) + static_cast<int>(this->dexterity * 0.33);
 	this->stamina = this->maxStamina;
+	this->accuracy = this->dexterity * 0.5;
 	this->luck = intelligence;
 	this->exp = 0;
 	this->nextExp = GetNextExpFor(level);
@@ -89,7 +91,7 @@ std::string Character::GetAsString() const
 void Character::PrintStats() const
 {
 	Utils::Break();
-	Utils::Print("===== STATS =====");
+	Utils::Print("\n===== STATS =====");
 	Utils::Print({ "Name: ", this->name });
 	Utils::Print({ "HP: ", std::to_string(this->hp), " / ", std::to_string(this->maxHp) });
 }

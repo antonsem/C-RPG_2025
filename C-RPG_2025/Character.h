@@ -47,6 +47,7 @@ private:
 	int maxStamina;
 	int stamina;
 	int luck;
+	int accuracy;
 	int exp;
 	int nextExp;
 

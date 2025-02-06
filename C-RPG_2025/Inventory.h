@@ -17,12 +17,12 @@ public:
 
 	inline void DebugPrint() const
 	{
-		Utils::Print("===== Inventory =====");
+		Utils::Print("\n===== Inventory =====");
 		for (size_t i = 0; i < this->itemCount; i++)
 		{
 			this->items[i]->DebugPrint();
 		}
-		Utils::Print("==========");
+		Utils::Print("==========", 2);
 	}
 
 private:

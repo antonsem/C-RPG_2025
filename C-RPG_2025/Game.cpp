@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "Character.h"
+#include "Enemy.h"
 
 Game::Game()
 {
@@ -14,6 +15,10 @@ Game::~Game()
 void Game::InitializeGame()
 {
 	CreateNewCharacter();
+
+	Enemy enemy(rand() % 10 + 1);
+
+	Utils::Print(enemy.GetAsString());
 }
 
 void Game::MainMenu()
@@ -74,5 +79,9 @@ void Game::Save()
 }
 
 void Game::Load()
+{
+}
+
+void Game::Travel()
 {
 }
