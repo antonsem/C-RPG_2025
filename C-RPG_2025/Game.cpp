@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "Enemy.h"
 #include "InGameEvent.h"
+#include "Paths.h"
 
 Game::Game()
 {
@@ -35,8 +36,10 @@ void Game::MainMenu()
 		break;
 	case 1:
 		this->character.PrintStats();
+		break;
 	case 2:
 		this->character.PrintInventory();
+		break;
 	default:
 		break;
 	}
@@ -57,7 +60,7 @@ void Game::Save()
 		return;
 	}
 
-	std::string fileName = this->character.Name() + ".txt";
+	std::string fileName = Paths::SAVE_PATH + this->character.Name() + ".txt";
 
 	if (fileName.size() <= 0)
 	{

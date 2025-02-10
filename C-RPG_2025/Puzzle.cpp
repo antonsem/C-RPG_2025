@@ -1,4 +1,5 @@
 #include "Puzzle.h"
+#include "Paths.h"
 
 Puzzle::Puzzle(const std::string fileName)
 {
@@ -11,7 +12,7 @@ Puzzle::Puzzle(const std::string fileName)
 		return;
 	}
 
-	std::ifstream inFile(fileName);
+	std::ifstream inFile(Paths::PUZZLE_PATH + fileName);
 
 	int answerCount = 0;
 	std::string answer = "";
