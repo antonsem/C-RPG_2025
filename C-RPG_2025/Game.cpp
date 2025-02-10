@@ -1,6 +1,6 @@
 #include "Game.h"
-#include "Character.h"
 #include "Enemy.h"
+#include "InGameEvent.h"
 
 Game::Game()
 {
@@ -15,10 +15,6 @@ Game::~Game()
 void Game::InitializeGame()
 {
 	CreateNewCharacter();
-
-	Enemy enemy(rand() % 10 + 1);
-
-	Utils::Print(enemy.GetAsString());
 }
 
 void Game::MainMenu()
@@ -50,7 +46,7 @@ void Game::CreateNewCharacter()
 {
 	Utils::Print("===== NEW CHARACTER =====");
 	std::string name = Utils::GetInput("Name");
-	character.Initialize(name);
+	this->character.Initialize(name);
 	Save();
 }
 
@@ -61,7 +57,7 @@ void Game::Save()
 		return;
 	}
 
-	std::string fileName = character.Name() + ".txt";
+	std::string fileName = this->character.Name() + ".txt";
 
 	if (fileName.size() <= 0)
 	{
@@ -72,7 +68,7 @@ void Game::Save()
 
 	if (outFile.is_open())
 	{
-		outFile << character.GetAsString();
+		outFile << this->character.GetAsString();
 	}
 
 	outFile.close();
@@ -84,4 +80,6 @@ void Game::Load()
 
 void Game::Travel()
 {
+	this->character.AddDistanceTravelled();
+
 }

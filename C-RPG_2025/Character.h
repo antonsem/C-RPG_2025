@@ -28,6 +28,8 @@ public:
 	inline const int& Stamina() const { return this->stamina; }
 	inline const int& Exp() const { return this->exp; }
 	inline const int& NextExp() const { return this->nextExp; }
+	
+	inline void AddDistanceTravelled(const int& distance = 1) { this->distanceTravelled += distance; }
 
 private:
 	std::string name;
@@ -35,10 +37,12 @@ private:
 	Inventory inventory;
 	Weapon weapon;
 	Armor armor;
+	int gold;
 
 	int level;
 	int posX;
 	int posY;
+	int distanceTravelled;
 	int hp;
 	int maxHp;
 	int minDamage;
