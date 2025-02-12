@@ -42,11 +42,14 @@ void Game::MainMenu()
 		Travel();
 		break;
 	default:
-		Utils::Print({
-			std::to_string(choice),
-			" is not a valid input. Try something else..."
-			});
+		Utils::Print(std::to_string(choice) + " is not a valid input. Try something else...");
 		break;
+	}
+
+	if (isPlaying)
+	{
+		system("pause");
+		system("cls");
 	}
 }
 
@@ -54,7 +57,7 @@ void Game::CreateNewCharacter()
 {
 	Utils::Print("===== NEW CHARACTER =====");
 	std::string name = Utils::GetInput("Name");
-	this->character.Initialize(name);
+	this->character.Initialize(name, 1);
 	Save();
 }
 

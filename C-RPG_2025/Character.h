@@ -13,6 +13,7 @@ public:
 	void PrintStats() const;
 	inline void PrintInventory() const { this->inventory.DebugPrint(); }
 	void LevelUp();
+	void AddExp(const int& exp);
 	int GetNextExpFor(const int level);
 	std::string GetAsString() const;
 
@@ -28,7 +29,7 @@ public:
 	inline const int& Stamina() const { return this->stamina; }
 	inline const int& Exp() const { return this->exp; }
 	inline const int& NextExp() const { return this->nextExp; }
-	
+
 	inline void AddDistanceTravelled(const int& distance = 1) { this->distanceTravelled += distance; }
 
 private:

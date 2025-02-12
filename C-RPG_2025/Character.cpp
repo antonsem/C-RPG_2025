@@ -103,8 +103,10 @@ void Character::PrintStats() const
 
 void Character::LevelUp()
 {
+	int levelUpCount = 0;
 	while (this->exp > this->nextExp)
 	{
+		levelUpCount++;
 		this->exp -= this->nextExp;
 		this->level++;
 		this->nextExp = GetNextExpFor(this->level);
@@ -112,4 +114,25 @@ void Character::LevelUp()
 		this->statPoints++;
 		this->skillPoints++;
 	}
+
+	if (levelUpCount > 0)
+	{
+		if (levelUpCount == 1)
+		{
+			Utils::Print("+ " + std::to_string(levelUpCount) + " level");
+		}
+		else
+		{
+			Utils::Print("+ " + std::to_string(levelUpCount) + " levels");
+		}
+
+		PrintStats();
+	}
+}
+
+void Character::AddExp(const int& exp)
+{
+	this->exp += exp;
+	LevelUp();
+	Utils::Print("+ " + std::to_string(exp) + " exp. (" + std::to_string(this->exp) + " / " + std::to_string(this->nextExp) + ")");
 }
