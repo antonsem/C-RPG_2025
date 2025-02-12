@@ -42,7 +42,12 @@ std::string Utils::Concat(const std::vector<std::string> output, const char sepa
 	int size = static_cast<int>(output.size());
 	for (size_t i = 0; i < size; i++)
 	{
-		retVal += output[i] + separator;
+		retVal += output[i];
+
+		if (i + 1 < size)
+		{
+			retVal += separator;
+		}
 	}
 
 	return retVal;

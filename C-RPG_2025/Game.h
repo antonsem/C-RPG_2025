@@ -2,6 +2,9 @@
 
 #include <fstream>
 #include "Character.h"
+#include "Enemy.h"
+#include "InGameEvent.h"
+#include "Paths.h"
 
 class Game
 {
@@ -24,5 +27,6 @@ private:
 	bool isPlaying;
 
 	Character character;
+	InGameEvent inGameEvent;
 };
 

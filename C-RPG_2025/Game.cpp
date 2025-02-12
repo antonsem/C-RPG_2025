@@ -1,7 +1,4 @@
 #include "Game.h"
-#include "Enemy.h"
-#include "InGameEvent.h"
-#include "Paths.h"
 
 Game::Game()
 {
@@ -25,6 +22,7 @@ void Game::MainMenu()
 	Utils::Print("0: Quit");
 	Utils::Print("1: Stats");
 	Utils::Print("2: Inventory");
+	Utils::Print("3: Travel");
 
 	Utils::Print("Your move: ", 0);
 	std::cin >> choice;
@@ -40,7 +38,14 @@ void Game::MainMenu()
 	case 2:
 		this->character.PrintInventory();
 		break;
+	case 3:
+		Travel();
+		break;
 	default:
+		Utils::Print({
+			std::to_string(choice),
+			" is not a valid input. Try something else..."
+			});
 		break;
 	}
 }
@@ -84,5 +89,5 @@ void Game::Load()
 void Game::Travel()
 {
 	this->character.AddDistanceTravelled();
-
+	this->inGameEvent.GenerateEvent(character);
 }

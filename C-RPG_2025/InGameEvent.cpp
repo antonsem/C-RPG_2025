@@ -36,4 +36,35 @@ void InGameEvent::EnemyEncounter(Character& character)
 
 void InGameEvent::PuzzleEncounter(Character& character)
 {
+	Puzzle puzzle("TestPuzzle.txt");
+	int playerAnswer = -1;
+	int attemptsLeft = puzzle.GetMaxAttemptCount();
+
+	while (attemptsLeft > 0)
+	{
+		Utils::Print('\n' + puzzle.GetAsString());
+		Utils::Print("Your answer: ", 0);
+
+		std::cin >> playerAnswer;
+
+		if (playerAnswer != puzzle.GetCorrectAnswer())
+		{
+			attemptsLeft--;
+			Utils::Print({
+				"Nope.",
+				std::to_string(attemptsLeft),
+				" attempts left."
+				});
+
+			if (attemptsLeft > 0)
+			{
+				Utils::Print("Try again...");
+			}
+		}
+		else
+		{
+			Utils::Print("That's right! Congratulations!");
+			break;
+		}
+	}
 }

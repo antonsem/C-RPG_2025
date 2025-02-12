@@ -3,6 +3,11 @@
 
 Puzzle::Puzzle(const std::string fileName)
 {
+	this->question = "";
+	this->answers = std::vector<std::string>();
+	this->maxAttempts = -1;
+	this->correctAnswer = -1;
+
 	if (fileName.size() <= 0)
 	{
 		Utils::Print({
@@ -29,6 +34,8 @@ Puzzle::Puzzle(const std::string fileName)
 			this->answers.push_back(answer);
 		}
 
+		inFile >> this->maxAttempts;
+		inFile.ignore();
 		inFile >> this->correctAnswer;
 		inFile.ignore();
 	}
@@ -52,5 +59,16 @@ std::string Puzzle::GetAsString()
 		}, '\n');
 
 	std::string answers = Utils::Concat(this->answers, '\n');
-	return question + '\n' + answers;
+	return Utils::Concat({ question, answers }, '\n');
+}
+
+std::string Puzzle::DebugPrint()
+{
+	std::string question = Utils::Concat({
+		"***** DEBUG PUZZLE *****",
+		this->question
+		}, '\n');
+
+	std::string answers = Utils::Concat(this->answers, '\n');
+	return Utils::Concat({ question, answers, std::to_string(this->maxAttempts),  std::to_string(this->correctAnswer) }, '\n');
 }
