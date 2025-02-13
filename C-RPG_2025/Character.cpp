@@ -3,8 +3,6 @@
 
 Character::Character()
 {
-	this->posX = 0;
-	this->posY = 0;
 	this->distanceTravelled = 0;
 
 	this->name = "";
@@ -32,14 +30,36 @@ Character::Character()
 	this->skillPoints = 0;
 }
 
+Character::Character(std::string str)
+{
+	std::vector<std::string> sheet;
+
+	size_t pos = 0;
+	while ((pos = str.find(' ')) != std::string::npos)
+	{
+		sheet.push_back(str.substr(0, pos));
+		str.erase(0, pos + 1);
+	}
+
+	this->name = sheet[0];
+	this->hp = std::stoi(sheet[1]);
+	this->level = std::stoi(sheet[2]);
+	this->exp = std::stoi(sheet[3]);
+	this->gold = std::stoi(sheet[4]);
+	this->distanceTravelled = std::stoi(sheet[5]);
+	this->stamina = std::stoi(sheet[6]);
+	this->strength = std::stoi(sheet[7]);
+	this->vitality = std::stoi(sheet[8]);
+	this->dexterity = std::stoi(sheet[9]);
+	this->intelligence = std::stoi(sheet[10]);
+}
+
 Character::~Character()
 {
 }
 
 void Character::Initialize(const std::string name, int level)
 {
-	this->posX = 0;
-	this->posY = 0;
 	this->distanceTravelled = 0;
 
 	this->name = name;
@@ -52,23 +72,29 @@ void Character::Initialize(const std::string name, int level)
 	this->dexterity = 5;
 	this->intelligence = 5;
 
-	this->maxHp = (this->vitality * 2) + static_cast<int>(this->strength * 0.5);
+	UpdateStats();
+
 	this->hp = this->maxHp;
-	this->maxDamage = this->strength * 2;
-	this->minDamage = this->strength;
-	this->defence = this->dexterity + static_cast<int>(this->intelligence * 0.5);
-	this->maxStamina = this->vitality + static_cast<int>(this->strength * 0.5) + static_cast<int>(this->dexterity * 0.33);
 	this->stamina = this->maxStamina;
-	this->accuracy = this->dexterity * 0.5;
-	this->luck = intelligence;
 	this->exp = 0;
-	this->nextExp = GetNextExpFor(level);
 
 	this->statPoints = 5;
 	this->skillPoints = 5;
 
 	inventory.AddItem(Weapon(5, 10, "Hidden Dagger"));
 	inventory.AddItem(Armor(0, 1, "Robe"));
+}
+
+void Character::UpdateStats()
+{
+	this->maxHp = (this->vitality * 2) + static_cast<int>(this->strength * 0.5);
+	this->maxDamage = this->strength * 2;
+	this->minDamage = this->strength;
+	this->defence = this->dexterity + static_cast<int>(this->intelligence * 0.5);
+	this->maxStamina = this->vitality + static_cast<int>(this->strength * 0.5) + static_cast<int>(this->dexterity * 0.33);
+	this->accuracy = this->dexterity * 0.5;
+	this->luck = intelligence;
+	this->nextExp = GetNextExpFor(level);
 }
 
 int Character::GetNextExpFor(const int level)
@@ -83,9 +109,12 @@ std::string Character::GetAsString() const
 {
 	return Utils::Concat({
 		this->name,
+		std::to_string(this->hp),
 		std::to_string(this->level),
-		std::to_string(this->posX),
-		std::to_string(this->posY),
+		std::to_string(this->exp),
+		std::to_string(this->gold),
+		std::to_string(this->distanceTravelled),
+		std::to_string(this->stamina),
 		std::to_string(this->strength),
 		std::to_string(this->vitality),
 		std::to_string(this->dexterity),
@@ -95,21 +124,20 @@ std::string Character::GetAsString() const
 
 void Character::PrintStats() const
 {
-	Utils::Break();
-	Utils::Print("\n===== STATS =====");
+	Utils::Printn("===== STATS =====");
 	Utils::Print({ "Name: ", this->name });
 	Utils::Print({ "HP: ", std::to_string(this->hp), " / ", std::to_string(this->maxHp) });
+	Utils::Print({ "Level: ", std::to_string(this->level) });
 }
 
 void Character::LevelUp()
 {
 	int levelUpCount = 0;
-	while (this->exp > this->nextExp)
+	while (this->exp >= this->nextExp)
 	{
 		levelUpCount++;
 		this->exp -= this->nextExp;
 		this->level++;
-		this->nextExp = GetNextExpFor(this->level);
 
 		this->statPoints++;
 		this->skillPoints++;
@@ -117,6 +145,7 @@ void Character::LevelUp()
 
 	if (levelUpCount > 0)
 	{
+		UpdateStats();
 		if (levelUpCount == 1)
 		{
 			Utils::Print("+ " + std::to_string(levelUpCount) + " level");
@@ -136,3 +165,5 @@ void Character::AddExp(const int& exp)
 	LevelUp();
 	Utils::Print("+ " + std::to_string(exp) + " exp. (" + std::to_string(this->exp) + " / " + std::to_string(this->nextExp) + ")");
 }
+
+

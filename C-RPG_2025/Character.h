@@ -7,6 +7,7 @@ class Character
 {
 public:
 	Character();
+	Character(std::string str);
 	virtual ~Character();
 
 	void Initialize(const std::string name, int level = 0);
@@ -14,13 +15,12 @@ public:
 	inline void PrintInventory() const { this->inventory.DebugPrint(); }
 	void LevelUp();
 	void AddExp(const int& exp);
+	void UpdateStats();
 	int GetNextExpFor(const int level);
 	std::string GetAsString() const;
 
 	inline const std::string& Name() const { return this->name; }
 	inline const int& Level() const { return this->level; }
-	inline const int& PosX() const { return this->posX; }
-	inline const int& PosY() const { return this->posY; }
 	inline const int& Hp() const { return this->hp; }
 	inline const int& MaxHp() const { return this->maxHp; }
 	inline const int& MinDamage() const { return this->minDamage; }
@@ -41,8 +41,6 @@ private:
 	int gold;
 
 	int level;
-	int posX;
-	int posY;
 	int distanceTravelled;
 	int hp;
 	int maxHp;

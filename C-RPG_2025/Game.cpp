@@ -55,10 +55,21 @@ void Game::MainMenu()
 
 void Game::CreateNewCharacter()
 {
+
 	Utils::Print("===== NEW CHARACTER =====");
 	std::string name = Utils::GetInput("Name");
-	this->character.Initialize(name, 1);
-	Save();
+	std::string path = Paths::SAVE_PATH + name + ".txt";
+	std::ifstream f(path.c_str());
+	if (f.good())
+	{
+		Load();
+	}
+	else
+	{
+		this->character.Initialize(name, 1);
+		Save();
+	}
+
 }
 
 void Game::Save()
@@ -87,6 +98,26 @@ void Game::Save()
 
 void Game::Load()
 {
+	std::string fileName = Paths::SAVE_PATH + this->character.Name() + ".txt";
+
+	if (fileName.size() <= 0)
+	{
+		return;
+	}
+
+	std::ifstream inFile(fileName);
+
+	if (inFile.is_open())
+	{
+		std::string sheet;
+		std::getline(inFile, sheet);
+		this->character = Character(sheet);
+
+		Utils::Printn("===== CHARACTER LOADED =====");
+		this->character.PrintStats();
+	}
+
+	inFile.close();
 }
 
 void Game::Travel()

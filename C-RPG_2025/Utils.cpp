@@ -8,7 +8,7 @@ void Utils::Break(const int count)
 	}
 }
 
-void Utils::Print(const std::string output, const int newLineCount)
+void Utils::Print(const std::string& output, const int newLineCount)
 {
 	std::cout << output;
 
@@ -18,7 +18,13 @@ void Utils::Print(const std::string output, const int newLineCount)
 	}
 }
 
-void Utils::Print(const std::vector<std::string> output, const bool eachNewLine, const int newLineCount)
+void Utils::Printn(const std::string& output, const int newLineCount)
+{
+	std::cout << std::endl;
+	Print(output, newLineCount);
+}
+
+void Utils::Print(const std::vector<std::string>& output, const bool eachNewLine, const int newLineCount)
 {
 	int size = static_cast<int>(output.size());
 	for (size_t i = 0; i < size; i++)
@@ -34,6 +40,12 @@ void Utils::Print(const std::vector<std::string> output, const bool eachNewLine,
 	{
 		std::cout << std::endl;
 	}
+}
+
+void Utils::Printn(const std::vector<std::string>& output, const bool eachNewLine, const int newLineCount)
+{
+	std::cout << std::endl;
+	Print(output, eachNewLine, newLineCount);
 }
 
 std::string Utils::Concat(const std::vector<std::string> output, const char separator)
