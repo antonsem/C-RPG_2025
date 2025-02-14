@@ -48,7 +48,7 @@ void Utils::Printn(const std::vector<std::string>& output, const bool eachNewLin
 	Print(output, eachNewLine, newLineCount);
 }
 
-std::string Utils::Concat(const std::vector<std::string> output, const char separator)
+std::string Utils::Concat(const std::vector<std::string>& output, const char separator)
 {
 	std::string retVal;
 	int size = static_cast<int>(output.size());
@@ -65,7 +65,7 @@ std::string Utils::Concat(const std::vector<std::string> output, const char sepa
 	return retVal;
 }
 
-std::string Utils::GetInput(const std::string question)
+std::string Utils::GetInput(const std::string& question)
 {
 	Print({ question, ": " }, false, 0);
 	std::string retVal;

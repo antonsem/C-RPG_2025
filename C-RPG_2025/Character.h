@@ -7,10 +7,10 @@ class Character
 {
 public:
 	Character();
-	Character(std::string str);
 	virtual ~Character();
 
-	void Initialize(const std::string name, int level = 0);
+	void Initialize(const std::string& name, int level = 0);
+	void InitializeFromFile(std::string& str);
 	void PrintStats() const;
 	inline void PrintInventory() const { this->inventory.DebugPrint(); }
 	void LevelUp();

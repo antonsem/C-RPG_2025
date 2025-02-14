@@ -28,11 +28,12 @@ Character::Character()
 
 	this->statPoints = 0;
 	this->skillPoints = 0;
+	this->inventory.Initialize();
 }
 
-Character::Character(std::string str)
+void Character::InitializeFromFile(std::string& str)
 {
-	std::vector<std::string> sheet;
+	std::vector<std::string> sheet = std::vector<std::string>();
 
 	size_t pos = 0;
 	while ((pos = str.find(' ')) != std::string::npos)
@@ -52,13 +53,18 @@ Character::Character(std::string str)
 	this->vitality = std::stoi(sheet[8]);
 	this->dexterity = std::stoi(sheet[9]);
 	this->intelligence = std::stoi(sheet[10]);
+	this->skillPoints = std::stoi(sheet[11]);
+	this->statPoints = std::stoi(sheet[12]);
+
+	UpdateStats();
+	this->inventory.Initialize();
 }
 
 Character::~Character()
 {
 }
 
-void Character::Initialize(const std::string name, int level)
+void Character::Initialize(const std::string& name, int level)
 {
 	this->distanceTravelled = 0;
 
@@ -80,9 +86,6 @@ void Character::Initialize(const std::string name, int level)
 
 	this->statPoints = 5;
 	this->skillPoints = 5;
-
-	inventory.AddItem(Weapon(5, 10, "Hidden Dagger"));
-	inventory.AddItem(Armor(0, 1, "Robe"));
 }
 
 void Character::UpdateStats()
@@ -119,6 +122,9 @@ std::string Character::GetAsString() const
 		std::to_string(this->vitality),
 		std::to_string(this->dexterity),
 		std::to_string(this->intelligence),
+		std::to_string(this->skillPoints),
+		std::to_string(this->statPoints),
+		" "
 		});
 }
 

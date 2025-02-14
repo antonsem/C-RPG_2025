@@ -9,6 +9,7 @@ public:
 	Inventory();
 	Inventory(const Inventory& obj);
 	virtual ~Inventory();
+	void Initialize(const int from = 0);
 
 	void AddItem(const Item& item);
 
@@ -30,7 +31,6 @@ private:
 	int itemCount;
 	Item** items;
 
-	void Initialize(const int from = 0);
 	void Expand();
 	void RemoveItem(int index);
 

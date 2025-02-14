@@ -17,7 +17,7 @@ public:
 
 	void CreateNewCharacter();
 	void Save();
-	void Load();
+	void Load(std::string& filePath);
 	void Travel();
 
 	inline bool IsPlaying() const { return this->isPlaying; }
