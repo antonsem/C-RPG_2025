@@ -2,7 +2,7 @@
 
 #include <string>
 
-static class Paths
+class Paths
 {
 public:
 	inline static const std::string PUZZLE_FOLDER = "Puzzles";

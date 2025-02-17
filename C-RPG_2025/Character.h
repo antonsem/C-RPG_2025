@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <map>
 #include "Inventory.h"
 
 class Character
@@ -9,15 +10,24 @@ public:
 	Character();
 	virtual ~Character();
 
+	enum Stat {
+		STRENGTH = 0,
+		VITALITY = 1,
+		DEXTERITY = 2,
+		INTELLIGENCE = 3
+	};
+
 	void Initialize(const std::string& name, int level = 0);
 	void InitializeFromFile(std::string& str);
-	void PrintStats() const;
+	void PrintAllStats() const;
+	void IterateStats() const;
 	inline void PrintInventory() const { this->inventory.DebugPrint(); }
 	void LevelUp();
 	void AddExp(const int& exp);
+	void AddToStat(const Stat& stat, const int& value = 1);
 	void UpdateStats();
 	int GetNextExpFor(const int level);
-	std::string GetAsString() const;
+	std::string GetAsString();
 
 	inline const std::string& Name() const { return this->name; }
 	inline const int& Level() const { return this->level; }
@@ -54,12 +64,11 @@ private:
 	int exp;
 	int nextExp;
 
-	int strength;
-	int vitality;
-	int dexterity;
-	int intelligence;
-
-	int statPoints;
-	int skillPoints;
+	const std::map<Stat, std::string> statNames = {
+		{Stat::STRENGTH, "Strenght"},
+		{Stat::VITALITY, "Vitality"},
+		{Stat::DEXTERITY, "Dexterity"},
+		{Stat::INTELLIGENCE, "Intelligence"},
+	};
 };
 

@@ -73,21 +73,33 @@ std::string Utils::GetInput(const std::string& question)
 	return retVal;
 }
 
-int Utils::GetInputInt(const std::string& question)
+int Utils::GetInputInt(const std::string& question, int min, int max)
 {
 	int answer;
-	Printn(question + ' ', 0);
-
-	std::cin >> answer;
-
-	while (std::cin.fail())
+	while (true)
 	{
-		Printn("Wrong input! Expecting a number...");
-		std::cin.clear();
-		std::cin.ignore(100, '\n');
-		
 		Printn(question + ' ', 0);
 		std::cin >> answer;
+
+		if (std::cin.fail())
+		{
+			Printn("Wrong input! Expecting a number...");
+			std::cin.clear();
+			std::cin.ignore(100, '\n');
+			continue;
+		}
+		else if (answer < min || answer > max)
+		{
+			Printn({
+				"Wrong value! The input should be between ",
+				std::to_string(min),
+				" and ",
+				std::to_string(max)
+				});
+		}
+
+		break;
+
 	}
 
 	return answer;

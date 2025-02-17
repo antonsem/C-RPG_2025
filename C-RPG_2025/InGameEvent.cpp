@@ -46,7 +46,7 @@ void InGameEvent::PuzzleEncounter(Character& character)
 	{
 		Utils::Printn(puzzle.GetAsString());
 
-		playerAnswer = Utils::GetInputInt("Your answer:");
+		playerAnswer = Utils::GetInputInt("Your answer:", 1, puzzle.GetAnswerCount());
 
 		if (playerAnswer != puzzle.GetCorrectAnswer())
 		{

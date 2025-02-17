@@ -24,7 +24,7 @@ void Game::MainMenu()
 	Utils::Print("2: Inventory");
 	Utils::Print("3: Travel");
 
-	choice = Utils::GetInputInt("Your move:");
+	choice = Utils::GetInputInt("Your move:", 0, 3);
 
 	switch (choice)
 	{
@@ -32,7 +32,7 @@ void Game::MainMenu()
 		this->isPlaying = false;
 		break;
 	case 1:
-		this->character.PrintStats();
+		this->character.PrintAllStats();
 		break;
 	case 2:
 		this->character.PrintInventory();
@@ -110,7 +110,7 @@ void Game::Load(std::string& filePath)
 		this->character.InitializeFromFile(sheet);
 
 		Utils::Printn("===== CHARACTER LOADED =====");
-		this->character.PrintStats();
+		this->character.PrintAllStats();
 	}
 
 	inFile.close();

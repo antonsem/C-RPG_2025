@@ -1,6 +1,8 @@
 #include "Character.h"
 #include "Inventory.h"
 
+std::map<Character::Stat, int> stats;
+
 Character::Character()
 {
 	this->distanceTravelled = 0;
@@ -9,10 +11,11 @@ Character::Character()
 	this->level = 0;
 	this->gold = 0;
 
-	this->strength = 0;
-	this->vitality = 0;
-	this->dexterity = 0;
-	this->intelligence = 0;
+	stats = std::map<Stat, int>();
+	stats[Stat::STRENGTH] = 0;
+	stats[Stat::VITALITY] = 0;
+	stats[Stat::DEXTERITY] = 0;
+	stats[Stat::INTELLIGENCE] = 0;
 
 	this->hp = 0;
 	this->maxHp = 0;
@@ -26,8 +29,6 @@ Character::Character()
 	this->exp = 0;
 	this->nextExp = 0;
 
-	this->statPoints = 0;
-	this->skillPoints = 0;
 	this->inventory.Initialize();
 }
 
@@ -49,12 +50,10 @@ void Character::InitializeFromFile(std::string& str)
 	this->gold = std::stoi(sheet[4]);
 	this->distanceTravelled = std::stoi(sheet[5]);
 	this->stamina = std::stoi(sheet[6]);
-	this->strength = std::stoi(sheet[7]);
-	this->vitality = std::stoi(sheet[8]);
-	this->dexterity = std::stoi(sheet[9]);
-	this->intelligence = std::stoi(sheet[10]);
-	this->skillPoints = std::stoi(sheet[11]);
-	this->statPoints = std::stoi(sheet[12]);
+	stats[Stat::STRENGTH] = std::stoi(sheet[7]);
+	stats[Stat::VITALITY] = std::stoi(sheet[8]);
+	stats[Stat::DEXTERITY] = std::stoi(sheet[9]);
+	stats[Stat::INTELLIGENCE] = std::stoi(sheet[10]);
 
 	UpdateStats();
 	this->inventory.Initialize();
@@ -73,30 +72,27 @@ void Character::Initialize(const std::string& name, int level)
 
 	this->gold = 100;
 
-	this->strength = 5;
-	this->vitality = 5;
-	this->dexterity = 5;
-	this->intelligence = 5;
+	stats[Stat::STRENGTH] = 5;
+	stats[Stat::DEXTERITY] = 5;
+	stats[Stat::VITALITY] = 5;
+	stats[Stat::INTELLIGENCE] = 5;
 
 	UpdateStats();
 
 	this->hp = this->maxHp;
 	this->stamina = this->maxStamina;
 	this->exp = 0;
-
-	this->statPoints = 5;
-	this->skillPoints = 5;
 }
 
 void Character::UpdateStats()
 {
-	this->maxHp = (this->vitality * 2) + static_cast<int>(this->strength * 0.5);
-	this->maxDamage = this->strength * 2;
-	this->minDamage = this->strength;
-	this->defence = this->dexterity + static_cast<int>(this->intelligence * 0.5);
-	this->maxStamina = this->vitality + static_cast<int>(this->strength * 0.5) + static_cast<int>(this->dexterity * 0.33);
-	this->accuracy = this->dexterity * 0.5;
-	this->luck = intelligence;
+	this->maxHp = (stats[Stat::VITALITY] * 2) + static_cast<int>(stats[Stat::STRENGTH] * 0.5);
+	this->maxDamage = stats[Stat::STRENGTH] * 2;
+	this->minDamage = stats[Stat::STRENGTH];
+	this->defence = stats[Stat::DEXTERITY] + static_cast<int>(stats[Stat::INTELLIGENCE] * 0.5);
+	this->maxStamina = stats[Stat::VITALITY] + static_cast<int>(stats[Stat::STRENGTH] * 0.5) + static_cast<int>(stats[Stat::DEXTERITY] * 0.33);
+	this->accuracy = stats[Stat::DEXTERITY] * 0.5;
+	this->luck = stats[Stat::INTELLIGENCE];
 	this->nextExp = GetNextExpFor(level);
 }
 
@@ -108,7 +104,7 @@ int Character::GetNextExpFor(const int level)
 			+ (17 * level - 12)) + 100;
 }
 
-std::string Character::GetAsString() const
+std::string Character::GetAsString()
 {
 	return Utils::Concat({
 		this->name,
@@ -118,22 +114,30 @@ std::string Character::GetAsString() const
 		std::to_string(this->gold),
 		std::to_string(this->distanceTravelled),
 		std::to_string(this->stamina),
-		std::to_string(this->strength),
-		std::to_string(this->vitality),
-		std::to_string(this->dexterity),
-		std::to_string(this->intelligence),
-		std::to_string(this->skillPoints),
-		std::to_string(this->statPoints),
+		std::to_string(stats[Stat::STRENGTH]),
+		std::to_string(stats[Stat::VITALITY]),
+		std::to_string(stats[Stat::DEXTERITY]),
+		std::to_string(stats[Stat::INTELLIGENCE]),
 		" "
 		});
 }
 
-void Character::PrintStats() const
+void Character::PrintAllStats() const
 {
 	Utils::Printn("===== STATS =====");
 	Utils::Print({ "Name: ", this->name });
 	Utils::Print({ "HP: ", std::to_string(this->hp), " / ", std::to_string(this->maxHp) });
 	Utils::Print({ "Level: ", std::to_string(this->level) });
+}
+
+void Character::IterateStats() const
+{
+	Utils::Break();
+	for (auto const& [stat, val] : stats)
+	{
+		int index = static_cast<int>(stat) + 1;
+		Utils::Print(std::to_string(index) + ". " + this->statNames.at(stat) + ": " + std::to_string(val));
+	}
 }
 
 void Character::LevelUp()
@@ -145,8 +149,11 @@ void Character::LevelUp()
 		this->exp -= this->nextExp;
 		this->level++;
 
-		this->statPoints++;
-		this->skillPoints++;
+		IterateStats();
+		int statToIncreasae = Utils::GetInputInt("Increase stat:", 1, static_cast<int>(stats.size()));
+
+		Stat stat = static_cast<Stat>(statToIncreasae - 1);
+		AddToStat(stat);
 	}
 
 	if (levelUpCount > 0)
@@ -161,7 +168,7 @@ void Character::LevelUp()
 			Utils::Print("+ " + std::to_string(levelUpCount) + " levels");
 		}
 
-		PrintStats();
+		PrintAllStats();
 	}
 }
 
@@ -170,6 +177,11 @@ void Character::AddExp(const int& exp)
 	this->exp += exp;
 	LevelUp();
 	Utils::Print("+ " + std::to_string(exp) + " exp. (" + std::to_string(this->exp) + " / " + std::to_string(this->nextExp) + ")");
+}
+
+void Character::AddToStat(const Stat& stat, const int& value)
+{
+	stats[stat] += value;
 }
 
 

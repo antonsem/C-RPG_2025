@@ -14,7 +14,7 @@ public:
 	inline const int& GetCorrectAnswer() const { return this->correctAnswer; }
 	inline const int& GetMaxAttemptCount() const { return this->maxAttempts; }
 	inline const int& GetExperienceReward() const { return this->experienceReward; }
-
+	inline const int& GetAnswerCount() const { return static_cast<int>(this->answers.size()); }
 	std::string GetAsString();
 	std::string DebugPrint();
 
