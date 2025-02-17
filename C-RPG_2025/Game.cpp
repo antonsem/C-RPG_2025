@@ -24,8 +24,7 @@ void Game::MainMenu()
 	Utils::Print("2: Inventory");
 	Utils::Print("3: Travel");
 
-	Utils::Print("Your move: ", 0);
-	std::cin >> choice;
+	choice = Utils::GetInputInt("Your move:");
 
 	switch (choice)
 	{
@@ -48,8 +47,7 @@ void Game::MainMenu()
 
 	if (isPlaying)
 	{
-		system("pause");
-		system("cls");
+		Utils::Clear();
 		Save();
 	}
 }

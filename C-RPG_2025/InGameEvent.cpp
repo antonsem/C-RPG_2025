@@ -32,7 +32,7 @@ void InGameEvent::GenerateEvent(Character& character)
 
 void InGameEvent::EnemyEncounter(Character& character)
 {
-	Utils::Print("\n===== ENEMY ENCOUNTER =====");
+	Utils::Printn("===== ENEMY ENCOUNTER =====");
 	Utils::Print("Coming soon...");
 }
 
@@ -44,10 +44,9 @@ void InGameEvent::PuzzleEncounter(Character& character)
 
 	while (attemptsLeft > 0)
 	{
-		Utils::Print('\n' + puzzle.GetAsString());
-		Utils::Print("\nYour answer: ", 0);
+		Utils::Printn(puzzle.GetAsString());
 
-		std::cin >> playerAnswer;
+		playerAnswer = Utils::GetInputInt("Your answer:");
 
 		if (playerAnswer != puzzle.GetCorrectAnswer())
 		{
@@ -57,11 +56,11 @@ void InGameEvent::PuzzleEncounter(Character& character)
 			{
 				if (attemptsLeft == 1)
 				{
-					Utils::Print("\nNope. 1 attempt left.");
+					Utils::Printn("Nope. 1 attempt left.");
 				}
 				else
 				{
-					Utils::Print("\nThink again! " + std::to_string(attemptsLeft) + " attempts left.");
+					Utils::Printn("Think again! " + std::to_string(attemptsLeft) + " attempts left.");
 				}
 				Utils::Print("Try again...");
 			}
@@ -72,7 +71,7 @@ void InGameEvent::PuzzleEncounter(Character& character)
 		}
 		else
 		{
-			Utils::Print("\nThat's right! Congratulations! (+ " + std::to_string(puzzle.GetExperienceReward()) + " exp)");
+			Utils::Printn("That's right! Congratulations! (+ " + std::to_string(puzzle.GetExperienceReward()) + " exp)");
 			character.AddExp(puzzle.GetExperienceReward());
 			break;
 		}

@@ -67,8 +67,35 @@ std::string Utils::Concat(const std::vector<std::string>& output, const char sep
 
 std::string Utils::GetInput(const std::string& question)
 {
-	Print({ question, ": " }, false, 0);
+	Print({ question, " " }, false, 0);
 	std::string retVal;
 	std::getline(std::cin, retVal);
 	return retVal;
+}
+
+int Utils::GetInputInt(const std::string& question)
+{
+	int answer;
+	Printn(question + ' ', 0);
+
+	std::cin >> answer;
+
+	while (std::cin.fail())
+	{
+		Printn("Wrong input! Expecting a number...");
+		std::cin.clear();
+		std::cin.ignore(100, '\n');
+		
+		Printn(question + ' ', 0);
+		std::cin >> answer;
+	}
+
+	return answer;
+}
+
+void Utils::Clear()
+{
+	Break();
+	system("pause");
+	system("cls");
 }
