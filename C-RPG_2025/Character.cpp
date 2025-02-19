@@ -182,6 +182,12 @@ void Character::AddExp(const int& exp)
 void Character::AddToStat(const Stat& stat, const int& value)
 {
 	stats[stat] += value;
+	Utils::Print({
+		"New",
+		statNames.at(stat),
+		"value is",
+		std::to_string(stats[stat])
+		}, ' ');
 }
 
 
