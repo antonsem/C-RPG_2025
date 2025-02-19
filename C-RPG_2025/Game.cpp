@@ -1,5 +1,4 @@
 #include "Game.h"
-#include "dArray.h"
 
 Game::Game()
 {
@@ -13,35 +12,6 @@ Game::~Game()
 
 void Game::InitializeGame()
 {
-	dArray<int> testArray;
-
-	for (size_t i = 0; i < 10; i++)
-	{
-		testArray.Push(i);
-	}
-
-	Utils::Print("New array:");
-	for (size_t i = 0; i < testArray.Size(); i++)
-	{
-		Utils::Print(std::to_string(testArray[i]));
-	}
-
-	testArray.Remove(5, true);
-
-	Utils::Printn("Removed at 5 ordered");
-	for (size_t i = 0; i < testArray.Size(); i++)
-	{
-		Utils::Print(std::to_string(testArray[i]));
-	}
-
-	testArray.Remove(5);
-
-	Utils::Printn("Removed at 5 unordered");
-	for (size_t i = 0; i < testArray.Size(); i++)
-	{
-		Utils::Print(std::to_string(testArray[i]));
-	}
-
 	CreateNewCharacter();
 }
 

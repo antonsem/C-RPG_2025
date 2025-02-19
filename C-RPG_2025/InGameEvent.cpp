@@ -9,14 +9,14 @@ InGameEvent::~InGameEvent()
 {
 }
 
-void InGameEvent::GenerateEvent(Character& character)
+void InGameEvent::GenerateEvent(Character& character, dArray<Enemy>& enemies)
 {
 	int eventNumber = rand() % this->numberOfEvents;
 
 	switch (eventNumber)
 	{
 	case 0:
-		EnemyEncounter(character);
+		EnemyEncounter(character, enemies);
 		break;
 	case 1:
 		PuzzleEncounter(character);
@@ -30,7 +30,7 @@ void InGameEvent::GenerateEvent(Character& character)
 	}
 }
 
-void InGameEvent::EnemyEncounter(Character& character)
+void InGameEvent::EnemyEncounter(Character& character, dArray<Enemy>& enemies)
 {
 	Utils::Printn("===== ENEMY ENCOUNTER =====");
 	Utils::Print("Coming soon...");

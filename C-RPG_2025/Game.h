@@ -28,5 +28,7 @@ private:
 
 	Character character;
 	InGameEvent inGameEvent;
+
+	dArray<Enemy> enemies;
 };
 
